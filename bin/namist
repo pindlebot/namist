@@ -1,0 +1,34 @@
+#!/usr/bin/env node
+const namer = require('../lib/index')
+
+const cli = require('meow')(`
+  Usage:
+    $ startup-name-generator [seed names]
+
+  Options:
+    -p, --paginate   make things a bit easier to read
+
+  Other options:
+    -h, --help       show usage information
+    -v, --version    print version info and exit
+`, {
+  boolean: ['help', 'version', 'paginate'],
+  alias: {
+    h: 'help', v: 'version', p: 'paginate'
+  }
+})
+
+// let list = namer(cli.input, { seed: 123 })
+let list = namer(cli.input)
+
+// Paginate
+if (cli.flags.paginate) {
+  list = list.reduce((result, item, idx) => {
+    const group = Math.floor(idx / 9)
+    if (!result[group]) result[group] = []
+    result[group].push(item)
+    return result
+  }, [])
+}
+
+console.log(JSON.stringify(list, null, 2))
