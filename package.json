@@ -1,7 +1,7 @@
 {
   "name": "namist",
   "description": "Let's name your silly startup",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "bin": {
     "namist": "bin/namist"
   },
