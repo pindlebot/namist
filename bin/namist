@@ -3,12 +3,21 @@ const namer = require('../lib/index')
 const yargs = require('yargs')
 
 let _ = yargs
+  .option('offset', {
+    type: 'number',
+    default: 0
+  })
+  .option('limit' ,{
+    type: 'number',
+    default: 10
+  })
   .command(
     '$0 [seeds]',
     'Generate names',
     () => {},
     argv => {
-      let list = namer(argv.seeds || [], {})
+      let { limit, offset } = argv
+      let list = namer(argv.seeds || [], { limit, offset })
       console.log(JSON.stringify(list, null, 2))
     }
   ).argv
